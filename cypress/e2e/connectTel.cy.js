@@ -10,7 +10,9 @@ describe('End-to-end testing for the Connect Tel Website', () => {
   const dashboard = new DashboardPage();
   const companyInfo = new CompanyInfoPage();
   const companyQuote = new CompanyQuotePage();
-  const regEmail = 'johndoe993@gmail.com';
+  const testRegEmail = 'johndoe994@gmail.com';
+  const validEmail = 'testuser@gmail.com';
+
 
   //run this script in 1nd batch due to login attempt validation
   describe('Login Page', () => {
@@ -19,7 +21,7 @@ describe('End-to-end testing for the Connect Tel Website', () => {
     });
 
     it('Success Login Functionality', () => {
-      login.inputEmail('testuser@gmail.com')
+      login.inputEmail(validEmail)
       login.inputPassword('N%CA#ofR81V6$W')
       login.clickLoginButton()
       login.verifySuccessLogin()
@@ -33,7 +35,7 @@ describe('End-to-end testing for the Connect Tel Website', () => {
     })
 
     it('Login using Invalid Password', () => {
-      login.inputEmail('testuser@gmail.com')
+      login.inputEmail(validEmail)
       login.inputPassword('Password')
       login.clickLoginButton()
       login.verifyErrorMsgInvalidCreds()
@@ -46,7 +48,7 @@ describe('End-to-end testing for the Connect Tel Website', () => {
     })
 
     it('Login using empty password', () => {
-      login.inputEmail('testuser@gmail.com')
+      login.inputEmail(validEmail)
       login.clickLoginButton()
       login.verifyErrorMsgPassReq()
     })
@@ -58,20 +60,20 @@ describe('End-to-end testing for the Connect Tel Website', () => {
     })
 
     it('Login using invalid cred more than 3 times and 1 valid creds', () => {
-      login.inputEmail('testuser@gmail.com')
+      login.inputEmail(validEmail)
       login.inputPassword('Password')
       for (let i = 0; i < 3; i++) {
         login.clickLoginButton()
       }
       login.clearEmailNPass()
-      login.inputEmail('testuser@gmail.com')
+      login.inputEmail(validEmail)
       login.inputPassword('N%CA#ofR81V6$W')
       login.clickLoginButton()
       login.verifySuccessLogin()
     })
 
     it('Login using invalid cred more than 5 times', () => {
-      login.inputEmail('testuser@gmail.com')
+      login.inputEmail(validEmail)
       login.inputPassword('Password')
       for (let i = 0; i < 6; i++) {
         login.clickLoginButton()
@@ -85,7 +87,7 @@ describe('End-to-end testing for the Connect Tel Website', () => {
     })
 
     it('Security - Verify Email Format', () => {
-      login.inputEmail('testuser@gmail.com')
+      login.inputEmail(validEmail)
       login.verifyEmail()
     })
   })
@@ -94,7 +96,7 @@ describe('End-to-end testing for the Connect Tel Website', () => {
     beforeEach(() => {
       register.goToRegisterURL()
       register.inputName('John Doe')
-      register.inputEmail(regEmail)
+      register.inputEmail(testRegEmail)
     })
 
     it('Success Registration Functionality', () => {
@@ -156,12 +158,14 @@ describe('End-to-end testing for the Connect Tel Website', () => {
   })
 
 
+
+
   //run this script in 2nd batch due to login attempt validation
-  /* describe('Dashboard Page', () => {
+  describe('Dashboard Page', () => {
     it('Verify if the dashboard is visible after login', () => {
       login.goToLoginURL()
       login.goToLoginURL()
-      login.inputEmail('testuser@gmail.com')
+      login.inputEmail(validEmail)
       login.inputPassword('N%CA#ofR81V6$W')
       login.clickLoginButton()
       dashboard.verifyDashContent()
@@ -174,7 +178,7 @@ describe('End-to-end testing for the Connect Tel Website', () => {
 
     beforeEach(() => {
       login.goToLoginURL()
-      login.inputEmail('testuser@gmail.com')
+      login.inputEmail(validEmail)
       login.inputPassword('N%CA#ofR81V6$W')
       login.clickLoginButton()
       cy.wait(1000)
@@ -232,7 +236,7 @@ describe('End-to-end testing for the Connect Tel Website', () => {
 
     beforeEach(() => {
       login.goToLoginURL()
-      login.inputEmail('testuser@gmail.com')
+      login.inputEmail(validEmail)
       login.inputPassword('N%CA#ofR81V6$W')
       login.clickLoginButton()
       cy.wait(1000)
@@ -282,5 +286,5 @@ describe('End-to-end testing for the Connect Tel Website', () => {
       companyInfo.clickGetProfileButton()
       companyInfo.verifyColumnsSmallLayout()
     })
-  }) */
+  })
 })
